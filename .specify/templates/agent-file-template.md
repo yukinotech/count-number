@@ -15,6 +15,7 @@ Auto-generated from all feature plans. Last updated: [DATE]
 ## Commands
 
 [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES]
+必须包含 `pnpm dev`、`pnpm build`、`pnpm preview`、`pnpm lint`。
 
 ## Code Style
 

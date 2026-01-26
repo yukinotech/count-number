@@ -17,21 +17,24 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: TypeScript ~5.9.3  
+**Primary Dependencies**: React 19.2.0, React DOM 19.2.0, Vite ^7.2.4  
+**Storage**: N/A  
+**Testing**: NEEDS CLARIFICATION  
+**Target Platform**: Web 浏览器  
+**Project Type**: web  
+**Performance Goals**: NEEDS CLARIFICATION  
+**Constraints**: 必须通过 `pnpm lint` 与 `pnpm build`  
+**Scale/Scope**: NEEDS CLARIFICATION
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- 使用 React 19.2.0、TypeScript ~5.9.3、Vite ^7.2.4、pnpm
+- 源码仅使用 .ts/.tsx，禁止新增 .js
+- 代码位于 `src/`，结构清晰且低耦合
+- 变更必须通过 `pnpm lint` 与 `pnpm build`
 
 ## Project Structure
 

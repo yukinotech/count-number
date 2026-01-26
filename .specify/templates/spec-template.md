@@ -95,6 +95,12 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Technical Constraints *(mandatory)*
+
+- 必须使用 React 19.2.0、TypeScript ~5.9.3、Vite ^7.2.4 与 pnpm
+- 源码仅使用 .ts/.tsx，保持在 `src/` 目录下
+- 变更需通过 `pnpm lint` 与 `pnpm build`
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]

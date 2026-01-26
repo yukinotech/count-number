@@ -38,3 +38,4 @@
 - Add comments or findings inline
 - Link to relevant resources or documentation
 - Items are numbered sequentially for easy reference
+- 必须包含宪章合规检查（技术栈与质量门禁）
