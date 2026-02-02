@@ -156,6 +156,7 @@ body {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
   transition: transform 0.1s ease, background 0.2s ease;
 }
 
@@ -168,6 +169,27 @@ body {
   background: #ffd6d6;
 }
 
+.tile--correct {
+  background: #c8f7d4;
+  color: #0f5132;
+  animation: pop 0.2s ease;
+  box-shadow: 0 10px 18px rgba(16, 185, 129, 0.25);
+}
+
+.tile--correct::after {
+  content: '✓';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #0f5132;
+  color: #ecfdf3;
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+}
 
 .result {
   position: sticky;
@@ -258,6 +280,15 @@ body {
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
