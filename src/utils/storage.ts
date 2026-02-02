@@ -1,4 +1,4 @@
-export type GameStatus = 'idle' | 'playing' | 'completed'
+export type GameStatus = 'idle' | 'playing' | 'paused' | 'completed'
 
 export type GameSnapshot = {
   order: number[]
@@ -26,7 +26,7 @@ export function loadSnapshot(): GameSnapshot | null {
     if (!Array.isArray(parsed.order) || parsed.order.length !== 100) return null
     if (typeof parsed.currentTarget !== 'number') return null
     if (parsed.currentTarget < 1 || parsed.currentTarget > 100) return null
-    if (!['idle', 'playing', 'completed'].includes(parsed.status)) return null
+    if (!['idle', 'playing', 'paused', 'completed'].includes(parsed.status)) return null
     if (typeof parsed.elapsedMs !== 'number' || parsed.elapsedMs < 0) return null
     return parsed
   } catch {

@@ -35,6 +35,8 @@ function App() {
   const elapsedLabel = useMemo(() => formatTime(timer.elapsedMs), [timer.elapsedMs])
   const completedCount = status === 'completed' ? TOTAL_NUMBERS : Math.max(0, currentTarget - 1)
   const grade = status === 'completed' ? getGrade(Math.floor(timer.elapsedMs / 1000)) : '—'
+  const pauseDisabled = status === 'idle' || status === 'completed'
+  const pauseLabel = status === 'paused' ? '恢复' : '暂停'
 
   useEffect(() => {
     if (status === 'completed') {
@@ -61,7 +63,7 @@ function App() {
   }
 
   const handleTileClick = (value: number) => {
-    if (status === 'completed') return
+    if (status === 'completed' || status === 'paused') return
     if (value !== currentTarget) {
       handleWrongClick(value)
       return
@@ -90,6 +92,19 @@ function App() {
     handleRestart()
   }
 
+  const handlePauseToggle = () => {
+    if (pauseDisabled) return
+    if (status === 'playing') {
+      setStatus('paused')
+      timer.stop()
+      return
+    }
+    if (status === 'paused') {
+      setStatus('playing')
+      timer.start()
+    }
+  }
+
   return (
     <div className="page">
       <ResumeDialog open={Boolean(resumeSnapshot)} onResume={handleResume} onRestart={handleRestartFromDialog} />
@@ -99,6 +114,9 @@ function App() {
         status={status}
         elapsedLabel={elapsedLabel}
         onRestart={handleRestart}
+        onPauseToggle={handlePauseToggle}
+        pauseLabel={pauseLabel}
+        pauseDisabled={pauseDisabled}
       />
       <main className="content">
         <GameBoard

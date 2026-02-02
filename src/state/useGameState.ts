@@ -33,7 +33,7 @@ export function useGameState(options: UseGameStateOptions = {}) {
   }, [])
 
   useEffect(() => {
-    if (!onAutoSave || status !== 'playing') return
+    if (!onAutoSave || (status !== 'playing' && status !== 'paused')) return
     const snapshot: GameSnapshot = {
       order,
       currentTarget,
