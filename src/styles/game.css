@@ -26,10 +26,10 @@ body {
 .page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 24px 64px;
+  padding: clamp(16px, 3vw, 32px) 24px clamp(24px, 4vw, 48px);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .header {
@@ -63,11 +63,11 @@ body {
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   background: #ffffffaa;
   border-radius: 18px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(6px);
 }
@@ -84,7 +84,7 @@ body {
   font-weight: 700;
 }
 
-.restart {
+.control-button {
   border: none;
   border-radius: 999px;
   padding: 8px 14px;
@@ -95,16 +95,43 @@ body {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.restart:hover {
+.control-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 18px rgba(17, 24, 39, 0.25);
+}
+
+.control-button + .control-button {
+  margin-top: 8px;
+}
+
+.control-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
 }
 
 .content {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 24px;
+  gap: 20px;
   align-items: start;
+}
+
+@media (max-height: 800px) {
+  .page {
+    padding: 14px 18px 24px;
+    gap: 16px;
+  }
+
+  .stats {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .content {
+    gap: 16px;
+  }
 }
 
 .board {

@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Pause/Resume Timer API (Conceptual)
+  version: 1.0.0
+  description: |-
+    用于描述“暂停/恢复/重新开始”的交互契约（概念性）。
+servers:
+  - url: https://localhost
+paths:
+  /game/pause:
+    post:
+      summary: 暂停计时
+      responses:
+        '200':
+          description: 计时已暂停
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimerState'
+  /game/resume:
+    post:
+      summary: 恢复计时
+      responses:
+        '200':
+          description: 计时已恢复
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimerState'
+  /game/restart:
+    post:
+      summary: 重新开始游戏
+      responses:
+        '200':
+          description: 游戏已重新开始
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameState'
+components:
+  schemas:
+    GameState:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [not_started, running, paused, ended]
+      required: [status]
+    TimerState:
+      type: object
+      properties:
+        elapsedTime:
+          type: string
+        isRunning:
+          type: boolean
+      required: [elapsedTime, isRunning]
