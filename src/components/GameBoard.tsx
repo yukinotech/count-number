@@ -3,10 +3,11 @@ import { GameTile } from './GameTile'
 type GameBoardProps = {
   order: number[]
   wrongValue: number | null
+  correctValue: number | null
   onTileClick: (value: number) => void
 }
 
-export function GameBoard({ order, wrongValue, onTileClick }: GameBoardProps) {
+export function GameBoard({ order, wrongValue, correctValue, onTileClick }: GameBoardProps) {
   return (
     <div className="board" role="grid">
       {order.map((value) => (
@@ -14,6 +15,7 @@ export function GameBoard({ order, wrongValue, onTileClick }: GameBoardProps) {
           key={value}
           value={value}
           isWrong={wrongValue === value}
+          isCorrect={correctValue === value}
           onClick={onTileClick}
         />
       ))}

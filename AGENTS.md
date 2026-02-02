@@ -36,6 +36,7 @@ Auto-generated from all feature plans. Last updated: 2026-01-27
 ## Active Technologies
 - 仅内存状态（不持久化历史记录） (001-h5-number-game)
 - N/A（仅内存状态） (002-pause-timer)
+- 无持久化（仅内存态 UI 状态） (003-add-correct-feedback)
 
 - TypeScript ~5.9.3 + React 19.2.0, React DOM 19.2.0, Vite ^7.2.4 (001-h5-number-game)
 
@@ -57,10 +58,10 @@ npm test && npm run lint
 TypeScript ~5.9.3: Follow standard conventions
 
 ## Recent Changes
+- 003-add-correct-feedback: Added TypeScript ~5.9.3 + React 19.2.0, React DOM 19.2.0, Vite ^7.2.4
 - 002-pause-timer: Added TypeScript ~5.9.3 + React 19.2.0, React DOM 19.2.0, Vite ^7.2.4
 - 001-h5-number-game: Added TypeScript ~5.9.3 + React 19.2.0, React DOM 19.2.0, Vite ^7.2.4
 
-- 001-h5-number-game: Added TypeScript ~5.9.3 + React 19.2.0, React DOM 19.2.0, Vite ^7.2.4
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

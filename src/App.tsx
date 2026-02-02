@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './styles/game.css'
 import { GameBoard } from './components/GameBoard'
 import { GameHeader } from './components/GameHeader'
@@ -10,6 +10,7 @@ import { getGrade } from './utils/grading'
 import { clearSnapshot, loadSnapshot, saveSnapshot, type GameSnapshot } from './utils/storage'
 
 const TOTAL_NUMBERS = 100
+const CORRECT_FEEDBACK_DURATION_MS = 900
 
 function formatTime(ms: number) {
   const totalSeconds = Math.floor(ms / 1000)
@@ -26,6 +27,8 @@ function App() {
   const { order, currentTarget, status, setCurrentTarget, setStatus, resetGame, restoreGame } =
     useGameState({ elapsedMs: timer.elapsedMs, onAutoSave: saveSnapshot })
   const [wrongValue, setWrongValue] = useState<number | null>(null)
+  const [correctValue, setCorrectValue] = useState<number | null>(null)
+  const correctTimeoutRef = useRef<number | null>(null)
   const [resumeSnapshot, setResumeSnapshot] = useState<GameSnapshot | null>(() => {
     const snapshot = loadSnapshot()
     if (snapshot && snapshot.status !== 'completed') return snapshot
@@ -44,16 +47,46 @@ function App() {
     }
   }, [status])
 
+  useEffect(() => {
+    return () => {
+      if (correctTimeoutRef.current) {
+        window.clearTimeout(correctTimeoutRef.current)
+        correctTimeoutRef.current = null
+      }
+    }
+  }, [])
+
+  const triggerCorrectFeedback = (value: number) => {
+    if (correctValue !== null) return
+    setCorrectValue(value)
+    if (correctTimeoutRef.current) {
+      window.clearTimeout(correctTimeoutRef.current)
+    }
+    correctTimeoutRef.current = window.setTimeout(() => {
+      setCorrectValue(null)
+      correctTimeoutRef.current = null
+    }, CORRECT_FEEDBACK_DURATION_MS)
+  }
+
+  const clearCorrectFeedback = () => {
+    if (correctTimeoutRef.current) {
+      window.clearTimeout(correctTimeoutRef.current)
+      correctTimeoutRef.current = null
+    }
+    setCorrectValue(null)
+  }
+
   const handleWrongClick = (value: number) => {
     setWrongValue(value)
     window.setTimeout(() => setWrongValue(null), 240)
   }
 
-  const handleCorrectClick = () => {
+  const handleCorrectClick = (value: number) => {
     if (status === 'idle') {
       setStatus('playing')
       timer.start()
     }
+    triggerCorrectFeedback(value)
     if (currentTarget >= TOTAL_NUMBERS) {
       setStatus('completed')
       timer.stop()
@@ -68,13 +101,14 @@ function App() {
       handleWrongClick(value)
       return
     }
-    handleCorrectClick()
+    handleCorrectClick(value)
   }
 
   const handleRestart = () => {
     clearSnapshot()
     timer.reset()
     resetGame()
+    clearCorrectFeedback()
   }
 
   const handleResume = () => {
@@ -122,6 +156,7 @@ function App() {
         <GameBoard
           order={order}
           wrongValue={wrongValue}
+          correctValue={correctValue}
           onTileClick={handleTileClick}
         />
         <ResultPanel visible={status === 'completed'} elapsedLabel={elapsedLabel} grade={grade} />
